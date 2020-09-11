@@ -1,4 +1,4 @@
-x<-seq(-10,10,.01)
+rx<-seq(-10,10,.01)
 y<-2+3*x^2-x
 plot(y,main="Y is a function of X",xlab="x",col="pink")
 
@@ -6,7 +6,8 @@ x<-seq(0,1,.01)
 y<-12*(x)*(1-x)^2
 plot(y,main="Beta Distribution with alpha = 2 and beta = 3",xlab="x",col="pink")
 
-
+install.packages("XLConnect")
+library(XLConnect)
 
 data(AutoMPG)
 head(AutoMPG,3)
