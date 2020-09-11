@@ -1,0 +1,59 @@
+---
+title: "MPG"
+author: "Michael Hall"
+date: "9/11/2020"
+output: html_document
+theme: journal
+highlight: espresso
+toc: true
+toc_depth : 4
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+###Cascading Style Sheet describing how HTML markdown language elements are displayed
+
+```{r results = "asis",echo=TRUE}
+cat("<style>
+    h1 { color: RoyalBlue;
+    }
+    p{color:darkgreen;
+    font-family:Lucida Calligraphy;
+    font-size:22px;}
+    </style>
+    ")
+
+```
+
+
+####Below is a simulated graphical representation of a polynomial degree 2
+
+```{r Ploynomial degree 2}
+x<-seq(-10,10,.01)
+y<-2+3*x^2-x
+plot(y,main="Y is a function of X",xlab="x",col="pink")
+summary(cars)
+```
+
+###Below is a simulated graphical representation of a beta Function with parameter alpha equal to 2 and Beta equal to 3.
+###X1,....,Xn ~ Beta(2,3) iid
+
+```{r Beta}
+x<-seq(0,1,.01)
+y<-12*(x)*(1-x)^2
+plot(y,main="Beta Distribution with alpha = 2 and beta = 3",xlab="x",col="pink")
+```
+
+
+```{r DataHeading}
+install.packages("XLConnect")
+library(XLConnect)
+AutoMPG <- loadWorkbook("AutoMPG.xlsx")
+data(AutoMPG)
+head(AutoMPG,3)
+```
+
