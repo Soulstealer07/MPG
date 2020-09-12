@@ -104,3 +104,16 @@ summary(loessmodel10)
 legend(0,47,legend=c("SP .75","SP .10", "SP .20", "SP .30", "SP .40", "SP .50", "SP .60", "SP .70", "SP .80", "SP .90", "SP 1","Optimal SP .375"),col=c("pink","lightgreen","red","black","brown","purple","darkgreen","yellow","darkred","orange","gold","navyblue"),lty=c(1,1,1,1,1,1,1,1,1,1,1,1),ncol=1,cex=.75)
 plot(AutoMPG$acceleration,AutoMPG$mpg,col="blue",pch=19,main="Loess Smoothing Technique",xlab="Acceleration",ylab="MPG")
 lines(optimalsmoothed, lwd=3,lty=1,col="navyblue")
+
+head(AutoMPG)
+
+z<-c(4,5,6,7,8,9)
+
+
+Weight<-AutoMPG$weight
+
+p<- ggplot(AutoMPG) + aes(AutoMPG$mpg,AutoMPG$acceleration) 
+
+p + geom_point(aes(colour=Weight)) + facet_wrap(~ AutoMPG$cylinders)  + xlab("Miles Per Gallon") + ylab("Acceleration") + labs(title="Acceleration vs. Miles Per Gallon and Number of Cylinders with Weight")
+
+

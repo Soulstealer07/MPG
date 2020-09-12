@@ -1,0 +1,74 @@
+---
+title: "MPGRTF"
+author: "Michael Hall"
+date: "9/11/2020"
+output: powerpoint_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+
+## Prepare for analyses
+```{r }
+set.seed(1)
+library(readxl)
+library(corrplot)
+library(ggplot2)
+```
+
+
+```{r Ploynomial degree 2}
+x<-seq(-10,10,.01)
+y<-2+3*x^2-x
+plot(y,main="Y is a function of X",xlab="x",col="pink")
+summary(cars)
+```
+
+
+```{r Beta}
+x<-seq(0,1,.01)
+y<-12*(x)*(1-x)^2
+plot(y,main="Beta Distribution with alpha = 2 and beta = 3",xlab="x",col="pink")
+```
+
+
+
+
+```{r DataHeading}
+
+AutoMPG <- read_excel("C:/Users/micha/OneDrive/Documents/AutoMPG/AutoMPG.xlsx")
+data(AutoMPG)
+AutoMPG<-as.data.frame(AutoMPG)
+
+```
+
+```{r Class}
+sapply(AutoMPG,class)
+AutoMPG$horsepower = as.numeric(AutoMPG$horsepower)
+sapply(AutoMPG,class)
+```
+
+```{r Plots}
+z<-c(4,5,6,7,8,9)
+pairs(AutoMPG[,-z],col=c("red"),pch=c(18),main="Scatterplot Matrix")
+AutoMPG <- read_excel("C:/Users/micha/OneDrive/Documents/AutoMPG/AutoMPG.xlsx")
+data(AutoMPG)
+AutoMPG<-as.data.frame(AutoMPG)
+sapply(AutoMPG,class)
+AutoMPG$horsepower = as.numeric(AutoMPG$horsepower)
+sapply(AutoMPG,class)
+corrplot(cor(AutoMPG[,-9][complete.cases(AutoMPG[,-9]),]),method = "square",type="upper")
+
+```
+
+
+```{r Scatter}
+Weight<-AutoMPG$weight
+
+p<- ggplot(AutoMPG) + aes(AutoMPG$mpg,AutoMPG$acceleration) 
+
+p + geom_point(aes(colour=Weight)) + facet_wrap(~ AutoMPG$cylinders)  + xlab("Miles Per Gallon") + ylab("Acceleration") + labs(title="Acceleration vs. Miles Per Gallon and Number of Cylinders with Weight")
+```

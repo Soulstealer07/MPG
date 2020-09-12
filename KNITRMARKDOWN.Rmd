@@ -2,11 +2,15 @@
 title: "MPG"
 author: "Michael Hall"
 date: "9/11/2020"
-output: html_document
+output: 
+html_document :
 theme: journal
 highlight: espresso
 toc: true
 toc_depth : 4
+toc_float : true
+number_section : true
+df_print: paged
 ---
 
 ```{r setup, include=FALSE}
@@ -18,6 +22,7 @@ knitr::opts_chunk$set(echo = TRUE)
 set.seed(1)
 library(readxl)
 library(corrplot)
+library(ggplot2)
 ```
 
 ###Cascading Style Sheet describing how HTML markdown language elements are displayed
@@ -60,6 +65,7 @@ AutoMPG <- read_excel("C:/Users/micha/OneDrive/Documents/AutoMPG/AutoMPG.xlsx")
 data(AutoMPG)
 AutoMPG<-as.data.frame(AutoMPG)
 head(AutoMPG,n=10,m=9)
+
 ```
 
 
@@ -86,10 +92,21 @@ sapply(AutoMPG,sd)
 
 ###Make pairwise comparisons of the variables in the dataset in addition to a correlation matrix plot
 ```{r Pairwise}
-pairs(AutoMPG[,-9])
+pairs(AutoMPG[,-9],col="red",pch=21)
 library(corrplot)
 corrplot(cor(AutoMPG[,-9][complete.cases(AutoMPG[,-9]),]),
                           method = "square",type="upper")
+```
+
+
+###Another plot
+
+```{r PlotSymmetry}
+Weight<-AutoMPG$weight
+
+p<- ggplot(AutoMPG) + aes(AutoMPG$mpg,AutoMPG$acceleration) 
+
+p + geom_point(aes(colour=Weight)) + facet_wrap(~ AutoMPG$cylinders)  + xlab("Miles Per Gallon") + ylab("Acceleration") + labs(title="Acceleration vs. Miles Per Gallon and Number of Cylinders with Weight")
 ```
 
 ###Make plots of Miles Per Gallon vs. Acceleration and find Pearsons Correlation Coefficient. Superimpose a linear regression line of the graph.
